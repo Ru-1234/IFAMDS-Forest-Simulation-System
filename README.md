@@ -123,7 +123,7 @@ Hash Tables   → Fast Access Layer
 
 ---
 
-## ⚙️ How It Will Be Built
+## Procedure
 
 * Each data structure implemented independently
 * Integrated through a central `main.cpp`
