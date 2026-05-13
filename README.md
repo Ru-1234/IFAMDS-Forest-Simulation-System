@@ -1,141 +1,123 @@
----
+# 🌲 IFAMDS — Intelligent Forest Advisory & Multi-Structure Decision System
 
-# 🌲 IFAMDS - Forest Simulation System
+**Course:** CL2001 — Data Structures & Algorithms | **Year:** 2026  
+**Institution:** FAST-NUCES Islamabad
 
-### Intelligent Forest Advisory & Multi-Structure Decision System (CL2001 - 2026)
-
-A modular **C++ console-based simulation system** designed to demonstrate how multiple data structures work together in a real-world forest monitoring and decision environment.
-
----
-
-## Project Concept
-
-This project models a **smart forest management system** where environmental data flows through multiple layers, and each layer is powered by a different data structure.
-
-Instead of isolated implementations, the system focuses on **integration and interaction between structures**.
+A modular C++ console-based simulation system demonstrating how multiple data structures work together in a real-world forest monitoring and decision environment.
 
 ---
 
-## Planned Architecture
+## 📌 Project Concept
 
-Each core data structure will be implemented in a **separate module (file)** and then integrated into a unified system:
+This project models a smart forest management system where environmental data flows through multiple layers — each layer powered by a different data structure. Rather than isolated implementations, the focus is on **integration and interaction** between structures to simulate realistic forest scenarios.
+
+---
+
+## 🏗️ Architecture
 
 ```
-Arrays        → Environmental Data Layer  
-Linked Lists  → Event Memory Layer  
-Queues        → Task Scheduling Layer  
-Trees         → Decision-Making Layer  
-Graphs        → Routing & Spread Layer  
-Hash Tables   → Fast Access Layer  
+arrays.cpp       --> Environmental Data Layer
+linkedlist.cpp   --> Event Memory Layer
+queue.cpp        --> Task Scheduling Layer
+tree.cpp         --> Decision-Making Layer
+graph.cpp        --> Routing & Spread Layer
+hashTable.cpp    --> Fast Access Layer
+monitoring.cpp   --> Performance Tracking Layer
+scenerio.cpp     --> Scenario Simulation Layer
+main.cpp         --> Central Integration & Menu
 ```
 
 ---
 
-## Planned Modules & Features
+## 📂 Module Breakdown
 
-### Arrays Module (`arrays.cpp`)
+### 🗂️ Arrays (`array.cpp / array.h`)
+- Static baseline environmental data storage
+- Dynamic sensor data management
+- 1D time-series tracking
+- 2D forest grid representation
+- Threshold-based anomaly detection
+- Spatial interpolation for missing sensor values
 
-* Static baseline environmental data
-* Dynamic sensor data storage
-* 1D time-series tracking
-* 2D forest grid representation
-* Threshold-based anomaly detection
-* Spatial interpolation for missing values
+### 🔗 Linked Lists (`linkedlist.cpp / linkedlist.h`)
+- Singly linked list for forward event streams
+- Doubly linked list for event correction and backward traversal
+- Circular linked list for continuous monitoring loops
+- Event history traversal (forward & backward)
+- Data reconstruction and correction support
 
----
+### 📋 Queues (`queue.cpp / queue.h`)
+- FIFO queue for routine monitoring tasks
+- Priority queue for emergency handling
+- Multi-queue system: monitoring, surveillance, emergency
+- Task scheduling and execution flow
+- Load balancing between queue types
 
-### Linked List Module (`linkedlist.cpp`)
+### 🌳 Trees (`tree.cpp / tree.h`)
+- Multiple specialized trees: `DecisionTree`, `ZoneHierarchyTree`, `SubZoneTree`, `TerrainTree`, `WaterTree`, `FireControlTree`, `EquipmentTree`, `FireClassTree`, `WildlifeTree`, `HumanActivityTree`, `RegionalTree`, `GlobalTree`
+- Zone-based hierarchical decision-making
+- Resource allocation logic
+- Fire risk evaluation using weighted scoring
+- Local, regional, and global decision handling
 
-* Singly linked list for event streams
-* Doubly linked list for corrections
-* Circular linked list for continuous monitoring
-* Event history traversal (forward & backward)
-* Data reconstruction & correction support
+### 🕸️ Graphs (`graph.cpp / graph.h`)
+- Both adjacency **matrix** (`Graph`) and **list** (`GraphList`) representations
+- BFS for fire spread simulation
+- DFS for deep connectivity analysis
+- Path cost calculation (distance + danger weighting)
+- Dynamic path updates based on fire conditions
 
----
+### #️⃣ Hash Tables (`hashTable.cpp / hashTable.h`)
+- Key-value storage for zone environmental data
+- Fast O(1) average-case retrieval
+- Collision handling (chaining)
+- Cache system for frequently accessed zone data
 
-### Queue Module (`queue.cpp`)
+### 📊 Monitoring (`monitoring.cpp / monitoring.h`)
+- Execution time tracking per module
+- System load analysis
+- Bottleneck detection
+- Performance optimization insights
 
-* FIFO queue for routine tasks
-* Priority queue for emergency handling
-* Multi-queue system (monitoring, surveillance, emergency)
-* Task scheduling & execution flow
-* Load balancing between queues
-
----
-
-### Tree Module (`tree.cpp`)
-
-* Hierarchical decision-making system
-* Zone-based decision trees
-* Resource allocation logic
-* Fire risk evaluation using weighted scoring
-* Local, regional, and global decision handling
-
----
-
-### Graph Module (`graph.cpp`)
-
-* Adjacency list & matrix representations
-* Breadth First Search (BFS) for fire spread simulation
-* Depth First Search (DFS) for deep analysis
-* Path cost calculation (distance + danger)
-* Dynamic path updates based on fire conditions
-
----
-
-### Hash Table Module (`hash.cpp`)
-
-* Key-value storage for zone data
-* Fast O(1) data retrieval
-* Collision handling (chaining or probing)
-* Cache system for frequently accessed data
+### 🎬 Scenarios (`scenerio.cpp / scenerio.h`)
+Five integrated test scenarios:
+1. **Cascading Fire Spread** — graph BFS simulates fire moving across zones
+2. **Sensor Failure & Data Reconstruction** — linked list handles missing/corrupt data
+3. **Multi-Factor Anomaly Detection** — array thresholds + hash lookups combined
+4. **System Overload Handling** — priority queue reroutes tasks under high load
+5. **Global Emergency Synchronization** — all modules coordinate via main controller
 
 ---
 
-### Monitoring Module (`monitoring.cpp`)
+## ⚙️ System Features
 
-* Execution time tracking
-* System load analysis
-* Bottleneck detection
-* Performance optimization insights
-
----
-
-## System Features
-
-* Menu-driven console interface
-* Real-time simulation of environmental data
-* Fire detection using thresholds
-* Multi-structure interaction across modules
-* Scenario-based system testing
-* Modular and maintainable code design
+- Menu-driven console interface via `main.cpp`
+- Real-time simulation of environmental sensor data
+- Fire detection and alerting using threshold logic
+- Multi-structure interaction across all modules
+- Scenario-based integration testing
+- Modular, maintainable, single-responsibility file design
+- Proper comments with time complexity annotations
 
 ---
 
-## Scenarios
+## 🛠️ Build & Run
 
-1. Cascading Fire Spread
-2. Sensor Failure & Data Reconstruction
-3. Multi-Factor Anomaly Detection
-4. System Overload Handling
-5. Global Emergency Synchronization
+```bash
+g++ main.cpp array.cpp linkedlist.cpp queue.cpp graph.cpp hashTable.cpp tree.cpp monitoring.cpp scenerio.cpp -o ifamds
+./ifamds
+```
 
----
-
-## Procedure
-
-* Each data structure implemented independently
-* Integrated through a central `main.cpp`
-* Clean function-based modular design
-* Proper comments + time complexity annotations
+> Requires a C++17-compatible compiler (g++ or clang++).
 
 ---
 
-## 👨‍💻 Team
+## 👩‍💻 Team
 
-* Romaisa
-* Maham Anjum
+| Name | Role |
+|------|------|
+| **Romaisa**  | Co-developer |
+| **Maham Anjum** | Co-developer |
 
 ---
 
@@ -145,13 +127,6 @@ MIT License © 2026
 
 ---
 
-## Why This Approach?
+## 💡 Why This Approach?
 
-This project focuses on:
-
-* Practical use of DSA concepts
-* Clean modular architecture
-* Real-world simulation logic
-* Integration instead of isolated problems
-
----
+Most DSA coursework treats each structure in isolation. IFAMDS instead asks: *what happens when all of them run together?* Every module feeds into the next — sensor arrays trigger linked list events, which enqueue tasks, which drive tree decisions, which route through graphs, all tracked by a hash cache and performance monitor. The result is a system that's greater than the sum of its parts.
