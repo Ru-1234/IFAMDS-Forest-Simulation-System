@@ -2,15 +2,15 @@
 #define LINKEDLIST_H
 #include "data.h"
 
-// L1-L3, L7-l10
-// used for raw, verified, anomaly,emergency streams and circular monitoring
+// L1-L3, L7-L10: singly linked list and circular
 struct sllNode {
     Event data;
     sllNode* next;
 
-    sllNode(Event val) : data(val) {next  = NULL;}
+    sllNode(Event val) : data(val) {next = NULL;}
 };
-// L4-L6
+
+// L4-L6: doubly linked list for forward/backward correction
 struct dllNode {
     Event data;
     dllNode* prev;
@@ -19,17 +19,17 @@ struct dllNode {
     dllNode(Event val) : data(val) {prev = next = NULL;}
 };
 
-// L1: Raw Event Stream Stores direct sensor readings without processing or filtering. Example: [25◦C, 28◦C, 30◦C]
-// Storage rule: Datastored = Datasensor, Values stored exactly as received from sensors w/o modification.
 class List {
     private:
-        sllNode* L1;   // raw eveny stream
-        sllNode* L2;   // L2
-        sllNode* L3;   // L3
+        sllNode* L1;        // raw event stream
+        sllNode* L2;        // verified event stream
+        sllNode* L3;        // anomaly event stream
 
-        dllNode* dllHead;      // for double linked list
+        dllNode* dllHead;   // doubly linked list
         dllNode* dllTail;
-        sllNode* tail;      // circular linked list
+
+        sllNode* tail;      // circular list tail
+
     public:
         List() {
             L1 = L2 = L3 = NULL;
@@ -43,29 +43,34 @@ class List {
         // L2
         void storeVerifiedEvent(Event val, int delta = 15);
 
-        // L3
-        void storeAnomalyEvent(Event val,int theta);       // Anomaly condition:   |Valuecurrent − Valuenormal| > θ
+        // L3: anomaly condition - |current - normal| > theta
+        void storeAnomalyEvent(Event val, int theta);
 
-        // L4: Forward correction
+        // L4: forward correction - Event(i+1) = f(Event(i))
         void forwardCorrection(int zone, int newValue);
 
-        // L5: Backward correction
+        // L5: backward correction - Event(i-1) = f(Event(i))
         void backwardCorrection(int zone, int newValue);
 
-        // L6: Synchronization
+        // L6: sync all nodes to base value
         void syncSystem();
 
-        // L7–L10 monitoring
+        // L7-L10: circular monitoring
         void insertCircular(Event val);
-        void localMonitor(int zone);    // print all event for one zone
-        void systemMonitor();           // print all events across all zones
-        void emergencyMonitor();        // |Valuet − V aluet−1| < ε
-        
-        // utilities
-        void insertInDLL(Event val){
+        void localMonitor(int zone);
+        void systemMonitor();
+        void emergencyMonitor();
+        void stabilityMonitor(int eps = 5);  // |Vt - Vt-1| < epsilon => stable
+
+        // display helpers
+        void showL1();
+        void showL2();
+        void showL3();
+
+        void insertInDLL(Event val) {
             dllNode* nn = new dllNode(val);
-            
-            if(dllHead==NULL) {
+
+            if(dllHead == NULL) {
                 dllHead = dllTail = nn;
                 return;
             }

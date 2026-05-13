@@ -1,4 +1,3 @@
-
 #ifndef DATA_H
 #define DATA_H
 
@@ -20,18 +19,19 @@ struct Event {
 };
 
 struct Task {
-    int taskType;     // routine / emergency / surveillance
-    int priority;     // importance level
+    int taskType;
+    int priority;
     string description;
 };
 
 struct GridCell {
     int zoneID;
-    int value;   // risk level or combined sensor score
+    int value;
 };
 
 struct DecisionData {
     int zone;
     float risk;
 };
+
 #endif
